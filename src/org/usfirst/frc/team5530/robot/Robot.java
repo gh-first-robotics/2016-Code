@@ -1,6 +1,6 @@
 //TODO: Update GRIP!!!!
 package org.usfirst.frc.team5530.robot;
-
+import com.ctre.CANTalon;
 import org.usfirst.frc.team5530.robot.autonomous.AutoProgram;
 import org.usfirst.frc.team5530.robot.autonomous.ChillyFries;
 import org.usfirst.frc.team5530.robot.autonomous.LowBar;
@@ -14,8 +14,8 @@ import org.usfirst.frc.team5530.robot.system.Scaler;
 import org.usfirst.frc.team5530.robot.system.Shooter;
 import org.usfirst.frc.team5530.robot.teleop.Operator;
 
+import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
@@ -47,7 +47,8 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 public class Robot extends SampleRobot {
 	private RobotSystem[] systems;
 
-	private USBCamera camera;
+	//private USBCamera camera;
+	private VideoSource usbCamera;
 	private Operator teleop;
 	
 	private static final AutoProgram[] autons = { new ChillyFries(), new Porticullis(), new LowBar(), new Other() };
@@ -82,9 +83,9 @@ public class Robot extends SampleRobot {
 			defenseChooser.addObject(autons[i].getName(), i);
 		SmartDashboard.putData("Starting Defense", defenseChooser);
 
-		camera = new USBCamera("cam0");
-		CameraServer.getInstance().setQuality(20);
-		CameraServer.getInstance().startAutomaticCapture(camera);
+		//camera = new USBCamera("cam0");
+		usbCamera = CameraServer.getInstance().startAutomaticCapture();
+		//usbCamera.setQuality(20);
 
 
 		Joystick stick1 = new Joystick(0);
